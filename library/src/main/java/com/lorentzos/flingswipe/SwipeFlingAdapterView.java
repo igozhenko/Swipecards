@@ -102,14 +102,12 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
             removeAllViewsInLayout();
         }else {
             View topCard = getChildAt(LAST_OBJECT_IN_STACK);
-            if(mActiveCard!=null && topCard!=null && topCard==mActiveCard) {
-                if (this.flingCardListener.isTouching()) {
-                    PointF lastPoint = this.flingCardListener.getLastPoint();
-                    if (this.mLastTouchPoint == null || !this.mLastTouchPoint.equals(lastPoint)) {
-                        this.mLastTouchPoint = lastPoint;
-                        removeViewsInLayout(0, LAST_OBJECT_IN_STACK);
-                        layoutChildren(1, adapterCount);
-                    }
+            if(mActiveCard!=null && topCard!=null && topCard==mActiveCard && this.flingCardListener.isTouching()) {
+                PointF lastPoint = this.flingCardListener.getLastPoint();
+                if (this.mLastTouchPoint == null || !this.mLastTouchPoint.equals(lastPoint)) {
+                    this.mLastTouchPoint = lastPoint;
+                    removeViewsInLayout(0, LAST_OBJECT_IN_STACK);
+                    layoutChildren(1, adapterCount);
                 }
             }else{
                 // Reset the UI and set top view listener
@@ -120,7 +118,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
         }
 
         mInLayout = false;
-        
+
         if(adapterCount <= MIN_ADAPTER_STACK) mFlingListener.onAdapterAboutToEmpty(adapterCount);
     }
 
