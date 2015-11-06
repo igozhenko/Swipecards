@@ -124,6 +124,12 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
         if(adapterCount <= MIN_ADAPTER_STACK) mFlingListener.onAdapterAboutToEmpty(adapterCount);
     }
 
+    public void forceRebuild() {
+        removeAllViewsInLayout();
+        layoutChildren(0, mAdapter.getCount());
+        setTopView();
+    }
+
 
     private void layoutChildren(int startingIndex, int adapterCount){
         while (startingIndex < Math.min(adapterCount, MAX_VISIBLE) ) {
